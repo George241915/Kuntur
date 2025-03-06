@@ -16,7 +16,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/icon_guardianeye.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "uce.guardianeye.android"
     },
     "web": {
       "bundler": "metro",
@@ -28,7 +29,7 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/icon_guardianeye.png",
           "imageWidth": 200,
           "resizeMode": "cover",
           "backgroundColor": "#ffffff"
@@ -37,6 +38,15 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "e2ab4347-a2b8-478d-ac40-8b37a8a7a55a"
+      }
+    },
+    "owner": "george241915"
   }
 }
