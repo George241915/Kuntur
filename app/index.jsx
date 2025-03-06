@@ -1,42 +1,57 @@
-import { Text, View, StyleSheet, Image } from "react-native";
-import KunturImage from '@/assets/images/coffeeSplash.png'
+import { useState, useEffect } from 'react';
+import { Redirect } from 'expo-router';
+import { useAuth } from '@/contexts/AuthContext';
+import { View, Text, ImageBackground, StyleSheet, Dimensions } from 'react-native';
 
-const HomeScreen = () => {
-  return (
-    <View style={styles.container}>
-      <Image source={KunturImage} style = {styles.image} />
-      <Text style = {styles.title}>Welcome to Kuntur</Text>
-      <Text style = {styles.subtitle}>!Kuntur?</Text>
-    </View>
-  );
+import ImgBg from '@/assets/images/GuardianEye_Background.png';
+
+export default function Index() {
+  const { user, loading } = useAuth();
+  const [isReady, setIsReady] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsReady(true);
+    }, 2000); // 2 segundos
+
+    return () => clearTimeout(timer); // Limpiar el timer si el componente se desmonta
+  }, []);
+
+  if (loading || !isReady) {
+    return (
+      <View style={styles.container}>
+        <ImageBackground
+          source={ImgBg}
+          resizeMode="cover"  // Ajusta la imagen para que cubra toda la pantalla
+          style={styles.image}
+        >
+          <Text style={styles.text}>GuardianEye</Text>
+        </ImageBackground>
+      </View>
+    );
+  }
+
+  return user ? <Redirect href="/tabs" /> : <Redirect href="/auth" />;
 }
-
-export default HomeScreen;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
-    backgroundColor: '#f8f9fa'
   },
   image: {
-    width: 100,
-    height: 100,
-    marginBottom: 20,
-    borderRadius: 10,
+    width: '110%',   // Asegura que la imagen ocupe el 100% del ancho de la pantalla
+    height: '110%',  // Asegura que la imagen ocupe el 100% del alto de la pantalla
+    justifyContent: 'center',  // Asegura que los elementos dentro estén centrados
+    alignItems: 'center',      // Centra el texto
   },
-  title: {
-    fontSize: 28,
+  text: {
+    color: 'white',
+    fontSize: 48,
     fontWeight: 'bold',
-    marginBottom: 10,
-    color: '#999',
-  },
-  subtitle:{
-    fontSize: 16,
-    color: '#666',
     textAlign: 'center',
-    marginBottom: 20,
-  }
-})
+    position: 'absolute',   // Esto asegura que el texto se mantenga centrado
+  },
+});
+
