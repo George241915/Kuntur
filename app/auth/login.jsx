@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, Text, TextInput, Button, Alert, StyleSheet } from "react-native";
+import { View, Text, TextInput, Button, Alert, StyleSheet, TouchableOpacity } from "react-native";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "expo-router";
 
@@ -43,7 +43,9 @@ const LoginScreen = () => {
         onChangeText={setPassword}
         secureTextEntry
       />
-      <Button title="Ingresar" onPress={handleLogin} />
+      <TouchableOpacity style={styles.button}onPress={handleLogin}>
+        <Text style={{color: 'white'}}>Ingresar</Text>
+      </TouchableOpacity>
       <Text style={styles.switchText} onPress={() => router.push("/auth/register")}>
         ¿No tienes cuenta? Regístrate
       </Text>
@@ -76,9 +78,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   button: {
-    backgroundColor: '#007bff',
+    backgroundColor: '#646ae7',
     paddingVertical: 12,
-    borderRadius: 8,
+    borderRadius: 100,
     width: '100%',
     alignItems: 'center',
     marginTop: 10,
