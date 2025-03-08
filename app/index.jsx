@@ -25,7 +25,7 @@ export default function Index() {
           resizeMode="cover"  // Ajusta la imagen para que cubra toda la pantalla
           style={styles.image}
         >
-          <Text style={styles.text}>GuardianEye</Text>
+          <Text style={styles.text}>Kuntur</Text>
         </ImageBackground>
       </View>
     );
