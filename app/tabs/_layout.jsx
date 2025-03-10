@@ -5,6 +5,7 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import { Tabs } from 'expo-router';
 import { TouchableOpacity, View, StyleSheet} from 'react-native'
+import { useEffect, useState } from 'react';
 import { AuthProvider, useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'expo-router';
 
@@ -25,6 +26,17 @@ const HeaderLogout = () => {
 };
 
 export default function TabLayout() {
+  const { user } = useAuth();
+  const router = useRouter();
+  const [redirected, setRedirected] = useState(false); // Estado para controlar la redirección
+
+  useEffect(() => {
+    // Solo redirige si el usuario está autenticado y aún no se ha realizado la redirección
+    if (user && !redirected) {
+      setRedirected(true); // Marca que la redirección ya ocurrió
+      router.replace("/tabs/alarm"); // Redirige a la pestaña 'alarm'
+    }
+  }, [user, redirected, router]); // Ejecutar cuando el estado 'user' cambie
   return (
     <AuthProvider>
       <Tabs screenOptions={{
@@ -68,7 +80,8 @@ export default function TabLayout() {
         ),
         headerTitleAlign: 'left', // Alinea el título a la izquierda
         headerRight: () => <HeaderLogout />,
-      }}>
+        
+      }} initialRouteName='alarm'>
         <Tabs.Screen name="index" options={{
           title: 'Inicio',
           tabBarIcon: ({ focused }) => (

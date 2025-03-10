@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { View, Text, TextInput, Button, Alert, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, TextInput, Image, Alert, StyleSheet, TouchableOpacity } from "react-native";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "expo-router";
+
+import Img from '@/assets/images/kn.png';
 
 const LoginScreen = () => {
   const { login } = useAuth();
@@ -27,6 +29,12 @@ const LoginScreen = () => {
 
   return (
     <View style={styles.container}>
+      <View>
+        <Image
+          source={Img}
+          style={styles.image}
+        ></Image>
+      </View>
       <Text style={styles.header}>Iniciar Sesión</Text>
       <TextInput
         style={styles.input}
@@ -43,8 +51,8 @@ const LoginScreen = () => {
         onChangeText={setPassword}
         secureTextEntry
       />
-      <TouchableOpacity style={styles.button}onPress={handleLogin}>
-        <Text style={{color: 'white'}}>Ingresar</Text>
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+        <Text style={{ color: 'white' }}>Ingresar</Text>
       </TouchableOpacity>
       <Text style={styles.switchText} onPress={() => router.push("/auth/register")}>
         ¿No tienes cuenta? Regístrate
@@ -99,6 +107,15 @@ const styles = StyleSheet.create({
     color: 'red',
     marginBottom: 10,
     fontSize: 16,
+  },
+  image: {
+    justifyContent: 'center',  // Asegura que los elementos dentro estén centrados
+    alignItems: 'center',      // Centra el texto
+    tintColor: '#646ae7',
+    height: 100,
+    width: 200,
+    resizeMode: 'cover',
+    paddingBottom: 0,
   },
 });
 

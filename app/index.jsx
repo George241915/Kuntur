@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Redirect } from 'expo-router';
 import { useAuth } from '@/contexts/AuthContext';
-import { View, Text, ImageBackground, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, Image, StyleSheet } from 'react-native';
 
-import ImgBg from '@/assets/images/GuardianEye_Background.png';
+import ImgBg from '@/assets/images/kn.png';
 
 export default function Index() {
   const { user, loading } = useAuth();
@@ -20,13 +20,15 @@ export default function Index() {
   if (loading || !isReady) {
     return (
       <View style={styles.container}>
-        <ImageBackground
-          source={ImgBg}
-          resizeMode="cover"  // Ajusta la imagen para que cubra toda la pantalla
-          style={styles.image}
-        >
-          <Text style={styles.text}>GuardianEye</Text>
-        </ImageBackground>
+        <View style={styles.container}>
+          <Image
+            source={ImgBg}
+            style={styles.image}
+          >
+          </Image>
+          <Text style={styles.text}>Kuntur</Text>
+        </View>
+
       </View>
     );
   }
@@ -39,19 +41,23 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 20,
+    backgroundColor: '#f8f9fa',
   },
   image: {
-    width: '110%',   // Asegura que la imagen ocupe el 100% del ancho de la pantalla
-    height: '110%',  // Asegura que la imagen ocupe el 100% del alto de la pantalla
     justifyContent: 'center',  // Asegura que los elementos dentro estén centrados
     alignItems: 'center',      // Centra el texto
+    tintColor: '#646ae7',
+    height: 100,
+    width: 200,
+    resizeMode: 'cover',
+    paddingBottom: 0,
   },
   text: {
-    color: 'white',
+    color: '#646ae7',
     fontSize: 48,
     fontWeight: 'bold',
     textAlign: 'center',
-    position: 'absolute',   // Esto asegura que el texto se mantenga centrado
   },
 });
 

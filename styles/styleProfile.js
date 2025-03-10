@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     borderWidth: 4,
     borderColor: '#D1D5DB',
+    tintColor: '#646ae7',
   },
   namePrincipal: {
     fontSize: 22,
