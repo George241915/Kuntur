@@ -1,5 +1,5 @@
-import { View, Text, SafeAreaView, Image, TouchableOpacity, Linking } from 'react-native';
-import React from 'react';
+import { View, Text, SafeAreaView, Image, TouchableOpacity, Linking, Modal } from 'react-native';
+import React, { useState } from 'react'; 
 import styles from '@/styles/styleProfile.js';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { useAuth } from '@/contexts/AuthContext';
@@ -21,10 +21,17 @@ export default function HomeUser() {
     city: 'No especificado',
   };
 
-  const handleEditProfile = () => {
+  // Estado para manejar la visibilidad del Modal
+  const [isModalVisible, setModalVisible] = useState(false);
 
-    console.log("Redirigiendo a la página de editar perfil...");
-    
+  // Función para mostrar el modal
+  const handleEditProfile = () => {
+    setModalVisible(true);
+  };
+
+  // Función para cerrar el modal
+  const handleCloseModal = () => {
+    setModalVisible(false);
   };
 
 
@@ -69,6 +76,29 @@ export default function HomeUser() {
           <Text style={styles.name}>{userData.phone}</Text>
         </View>
       </View>
+       {/* Modal para editar perfil */}
+       <Modal
+        visible={isModalVisible}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={handleCloseModal}
+      >
+        <View style={styles.modalBackground}>
+          <View style={styles.modalContainer}>
+            {/* Botón de cerrar */}
+            <TouchableOpacity onPress={handleCloseModal} style={styles.closeButton}>
+              <Text style={{ fontSize: 30 }}>×</Text>
+            </TouchableOpacity>
+
+            <Text style={styles.modalTitle}>Editar Perfil</Text>
+          </View>
+        </View>
+      </Modal>            
+
+      
+
+
     </View>
   );
 }
+
