@@ -21,6 +21,13 @@ export default function HomeUser() {
     city: 'No especificado',
   };
 
+  const handleEditProfile = () => {
+
+    console.log("Redirigiendo a la página de editar perfil...");
+    
+  };
+
+
   return (
     <View style={styles.container}>
       <View style={styles.avatarContainer}>
@@ -36,6 +43,13 @@ export default function HomeUser() {
             />
             <Text style={styles.namePrincipal}>{userData.name}</Text>
             <Text style={styles.emailSecond}>{userData.email}</Text>
+
+            <TouchableOpacity onPress={handleEditProfile}>
+              <Text style={{ color: '#3F7DF2', padding: 10 }}>
+                Editar perfil
+              </Text>
+            </TouchableOpacity>
+
             <View style={styles.buttonContainer}>
               <Text style={{ color: '#3F7DF2', padding: 10 }} onPress={() => Linking.openURL('https://www.facebook.com')}>
                 {facebook}
