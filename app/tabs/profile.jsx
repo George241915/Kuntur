@@ -25,6 +25,10 @@ export default function HomeUser() {
   const [isModalVisible, setModalVisible] = useState(false);
   const [editingName, setEditingName] = useState(false); // Estado para editar el nombre
   const [newName, setNewName] = useState(userData.name); // Estado para el nuevo nombre
+  const [editingPhone, setEditingPhone] = useState(false); // Estado para editar el teléfono
+  const [newPhone, setNewPhone] = useState(userData.phone); // Estado para el nuevo teléfono
+  const [editingAddress, setEditingAddress] = useState(false); // Estado para editar la dirección
+  const [newAddress, setNewAddress] = useState(userData.address); // Estado para la nueva dirección
 
   // Función para mostrar el modal
   const handleEditProfile = () => {
@@ -47,7 +51,25 @@ const handleSaveName = () => {
   
 };
 
+// Función para manejar la edición del teléfono
+const handleEditPhone = () => {
+  setEditingPhone(true);
+};
 
+// Función para guardar el teléfono editado
+const handleSavePhone = () => {
+  setEditingPhone(false);
+};
+
+// Función para manejar la edición de la dirección
+const handleEditAddress = () => {
+  setEditingAddress(true);
+};
+
+// Función para guardar la dirección editada
+const handleSaveAddress = () => {
+  setEditingAddress(false);
+};
 
   return (
     <View style={styles.container}>
@@ -108,8 +130,6 @@ const handleSaveName = () => {
 
             {/* Título Nombre */}
             <Text style={styles.subtitle}>Nombre:</Text>
-
-            {/* Nombre editable con borde y lápiz */}
             <View style={styles.nameContainer}>
               {editingName ? (
                 <TextInput
@@ -127,6 +147,47 @@ const handleSaveName = () => {
                 </>
               )}
             </View>
+            <Text style={styles.subtitle}>Correo:</Text>
+            <Text style={styles.nameContainer} editable={false}>{userData.email}</Text>  {/* No editable */}
+
+            <Text style={styles.subtitle}>Teléfono:</Text>
+            <View style={styles.nameContainer}>
+              {editingPhone ? (
+                <TextInput
+                  style={styles.input}
+                  value={newPhone}
+                  onChangeText={setNewPhone}
+                  onSubmitEditing={handleSavePhone}
+                />
+              ) : (
+                <>
+                  <Text style={styles.input}>{newPhone}</Text>
+                  <TouchableOpacity onPress={handleEditPhone} style={styles.editIconContainer}>
+                    <Icon name="edit" size={20} color="#3F7DF2" />
+                  </TouchableOpacity>
+                </>
+              )}
+            </View>
+
+            <Text style={styles.subtitle}>Dirección:</Text>
+            <View style={styles.nameContainer}>
+              {editingAddress ? (
+                <TextInput
+                  style={styles.input}
+                  value={newAddress}
+                  onChangeText={setNewAddress}
+                  onSubmitEditing={handleSaveAddress}
+                />
+              ) : (
+                <>
+                  <Text style={styles.input}>{newAddress}</Text>
+                  <TouchableOpacity onPress={handleEditAddress} style={styles.editIconContainer}>
+                    <Icon name="edit" size={20} color="#3F7DF2" />
+                  </TouchableOpacity>
+                </>
+              )}
+            </View>
+
           </View>
         </View>
       </Modal>          
