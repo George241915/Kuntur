@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, Image, TouchableOpacity, Linking, Modal } from 'react-native';
+import { View, Text, SafeAreaView, Image, TouchableOpacity, Linking, Modal, TextInput } from 'react-native';
 import React, { useState } from 'react'; 
 import styles from '@/styles/styleProfile.js';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -23,6 +23,8 @@ export default function HomeUser() {
 
   // Estado para manejar la visibilidad del Modal
   const [isModalVisible, setModalVisible] = useState(false);
+  const [editingName, setEditingName] = useState(false); // Estado para editar el nombre
+  const [newName, setNewName] = useState(userData.name); // Estado para el nuevo nombre
 
   // Función para mostrar el modal
   const handleEditProfile = () => {
@@ -33,6 +35,18 @@ export default function HomeUser() {
   const handleCloseModal = () => {
     setModalVisible(false);
   };
+
+// Función para manejar la edición del nombre
+const handleEditName = () => {
+  setEditingName(true);
+};
+
+// Función para guardar el nombre editado
+const handleSaveName = () => {
+  setEditingName(false);
+  
+};
+
 
 
   return (
@@ -91,13 +105,31 @@ export default function HomeUser() {
             </TouchableOpacity>
 
             <Text style={styles.modalTitle}>Editar Perfil</Text>
+
+            {/* Título Nombre */}
+            <Text style={styles.subtitle}>Nombre:</Text>
+
+            {/* Nombre editable con borde y lápiz */}
+            <View style={styles.nameContainer}>
+              {editingName ? (
+                <TextInput
+                  style={styles.input}
+                  value={newName}
+                  onChangeText={setNewName}
+                  onSubmitEditing={handleSaveName}
+                />
+              ) : (
+                <>
+                  <Text style={styles.namePrincipal}>{newName}</Text>
+                  <TouchableOpacity onPress={handleEditName} style={styles.editIconContainer}>
+                    <Icon name="edit" size={20} color="#3F7DF2" />
+                  </TouchableOpacity>
+                </>
+              )}
+            </View>
           </View>
         </View>
-      </Modal>            
-
-      
-
-
+      </Modal>          
     </View>
   );
 }

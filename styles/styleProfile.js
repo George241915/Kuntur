@@ -87,7 +87,39 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 20,
   },
-
+  subtitle: {
+    fontSize: 22, // Mismo tamaño que los campos
+    fontWeight: '600',  // Mantiene el formato uniforme
+    marginBottom: 5,
+    color: '#333', // Color consistente
+    alignSelf: 'flex-start', // Alinea el subtítulo a la izquierda
+  },
+  nameContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderColor: '#ccc',
+    padding: 5,
+    marginBottom: 10,
+    alignSelf: 'flex-start', // Alinea el subtítulo a la izquierda
+  },
+  input: {
+    height: 40,
+    borderColor: '#ccc',
+    borderBottomWidth: 0,
+    fontSize: 16,
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    marginBottom: 5,
+    backgroundColor: '#f9f9f9',
+  },
+  editIconContainer: {
+    position: 'absolute',
+    right: -40, // El ícono se posiciona fuera del cuadro
+    top: '50%',
+    transform: [{ translateY: -7 }], // Centra el ícono verticalmente
+  },
 });
 
 export default styles
