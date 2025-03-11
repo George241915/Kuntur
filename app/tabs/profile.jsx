@@ -71,6 +71,14 @@ const handleSaveAddress = () => {
   setEditingAddress(false);
 };
 
+// Función para manejar la entrada del número de teléfono
+const handlePhoneChange = (text) => {
+  // Asegura que solo se ingresen números y que no superen los 10 caracteres
+  if (/^\d{0,10}$/.test(text)) {
+    setNewPhone(text);
+  }
+};
+
   return (
     <View style={styles.container}>
       <View style={styles.avatarContainer}>
@@ -154,10 +162,13 @@ const handleSaveAddress = () => {
             <View style={styles.nameContainer}>
               {editingPhone ? (
                 <TextInput
-                  style={styles.input}
-                  value={newPhone}
-                  onChangeText={setNewPhone}
-                  onSubmitEditing={handleSavePhone}
+                style={styles.input}
+                value={newPhone}
+                onChangeText={handlePhoneChange}  
+                onSubmitEditing={handleSavePhone}
+                placeholder="Ingrese su teléfono"
+                keyboardType="numeric"  
+                maxLength={10}  
                 />
               ) : (
                 <>
