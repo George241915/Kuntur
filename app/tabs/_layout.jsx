@@ -119,7 +119,7 @@ export default function TabLayout() {
           ),
         }} />
         <Tabs.Screen name="find" options={{
-          title: 'Encontrar Drone',
+          title: 'Encontrar Kuntur',
           tabBarIcon: ({ focused }) => (
             <View style={focused ? styles.selectedIcon : styles.iconContainer}>
               <FontAwesome6
