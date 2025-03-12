@@ -1,5 +1,5 @@
 import { View, Text, SafeAreaView, Image, TouchableOpacity, Linking, Modal, TextInput } from 'react-native';
-import React, { useState } from 'react'; 
+import React, { useState } from 'react';
 import styles from '@/styles/styleProfile.js';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { useAuth } from '@/contexts/AuthContext';
@@ -30,6 +30,13 @@ export default function HomeUser() {
   const [editingAddress, setEditingAddress] = useState(false); // Estado para editar la dirección
   const [newAddress, setNewAddress] = useState(userData.address); // Estado para la nueva dirección
 
+  // Copia de los datos originales antes de la edición
+  const [originalData, setOriginalData] = useState({
+    name: userData.name,
+    phone: userData.phone,
+    address: userData.address,
+  });
+
   // Función para mostrar el modal
   const handleEditProfile = () => {
     setModalVisible(true);
@@ -40,45 +47,62 @@ export default function HomeUser() {
     setModalVisible(false);
   };
 
-// Función para manejar la edición del nombre
-const handleEditName = () => {
-  setEditingName(true);
-};
+  // Función para manejar la edición del nombre
+  const handleEditName = () => {
+    setEditingName(true);
+  };
 
-// Función para guardar el nombre editado
-const handleSaveName = () => {
-  setEditingName(false);
-  
-};
+  // Función para guardar el nombre editado
+  const handleSaveName = () => {
+    setEditingName(false);
 
-// Función para manejar la edición del teléfono
-const handleEditPhone = () => {
-  setEditingPhone(true);
-};
+  };
 
-// Función para guardar el teléfono editado
-const handleSavePhone = () => {
-  setEditingPhone(false);
-};
+  // Función para manejar la edición del teléfono
+  const handleEditPhone = () => {
+    setEditingPhone(true);
+  };
 
-// Función para manejar la edición de la dirección
-const handleEditAddress = () => {
-  setEditingAddress(true);
-};
+  // Función para guardar el teléfono editado
+  const handleSavePhone = () => {
+    setEditingPhone(false);
+  };
 
-// Función para guardar la dirección editada
-const handleSaveAddress = () => {
+  // Función para manejar la edición de la dirección
+  const handleEditAddress = () => {
+    setEditingAddress(true);
+  };
+
+  // Función para guardar la dirección editada
+  const handleSaveAddress = () => {
+    setEditingAddress(false);
+  };
+
+  // Función para manejar la entrada del número de teléfono
+  const handlePhoneChange = (text) => {
+    // Asegura que solo se ingresen números y que no superen los 10 caracteres
+    if (/^\d{0,10}$/.test(text)) {
+      setNewPhone(text);
+    }
+  };
+  // Función para guardar cambios
+  const handleSaveChanges = () => {
+    // Actualizamos los valores de los campos si hay cambios
+    userData.name = newName;
+    userData.phone = newPhone;
+    userData.address = newAddress;
+
+    // Cerrar el modal después de guardar
+    setModalVisible(false);
+  };
+
+  // Función para cancelar cambios
+const handleCancelChanges = () => {
+  setEditingName(false); // Esto asegura que el ícono de edición vuelva
+  setEditingPhone(false); // Lo mismo para los otros campos
   setEditingAddress(false);
+  setModalVisible(false); // Cierra el modal
 };
-
-// Función para manejar la entrada del número de teléfono
-const handlePhoneChange = (text) => {
-  // Asegura que solo se ingresen números y que no superen los 10 caracteres
-  if (/^\d{0,10}$/.test(text)) {
-    setNewPhone(text);
-  }
-};
-
   return (
     <View style={styles.container}>
       <View style={styles.avatarContainer}>
@@ -105,10 +129,10 @@ const handlePhoneChange = (text) => {
               <Text style={{ color: '#3F7DF2', padding: 10 }} onPress={() => Linking.openURL('https://www.facebook.com')}>
                 {facebook}
               </Text>
-              <Text style={{ color: '#E1306C' , padding: 10}} onPress={() => Linking.openURL('https://www.instagram.com')}>
+              <Text style={{ color: '#E1306C', padding: 10 }} onPress={() => Linking.openURL('https://www.instagram.com')}>
                 {instagram}
               </Text>
-              <Text style={{ color: '#0e76a8' ,padding: 10}} onPress={() => Linking.openURL('https://www.linkedin.com')}>
+              <Text style={{ color: '#0e76a8', padding: 10 }} onPress={() => Linking.openURL('https://www.linkedin.com')}>
                 {linkedin}
               </Text>
             </View>
@@ -120,8 +144,8 @@ const handlePhoneChange = (text) => {
           <Text style={styles.name}>{userData.phone}</Text>
         </View>
       </View>
-       {/* Modal para editar perfil */}
-       <Modal
+      {/* Modal para editar perfil */}
+      <Modal
         visible={isModalVisible}
         animationType="slide"
         transparent={true}
@@ -162,13 +186,13 @@ const handlePhoneChange = (text) => {
             <View style={styles.nameContainer}>
               {editingPhone ? (
                 <TextInput
-                style={styles.input}
-                value={newPhone}
-                onChangeText={handlePhoneChange}  
-                onSubmitEditing={handleSavePhone}
-                placeholder="Ingrese su teléfono"
-                keyboardType="numeric"  
-                maxLength={10}  
+                  style={styles.input}
+                  value={newPhone}
+                  onChangeText={handlePhoneChange}
+                  onSubmitEditing={handleSavePhone}
+                  placeholder="Ingrese su teléfono"
+                  keyboardType="numeric"
+                  maxLength={10}
                 />
               ) : (
                 <>
@@ -198,11 +222,20 @@ const handlePhoneChange = (text) => {
                 </>
               )}
             </View>
+            <View style={styles.buttonsContainer}>
+              <TouchableOpacity onPress={handleCancelChanges} style={styles.buttonCancel}>
+                <Text style={styles.buttonText}>Cancelar</Text>
+              </TouchableOpacity>
 
+              <TouchableOpacity onPress={handleSaveChanges} style={styles.buttonSave}>
+                <Text style={styles.buttonText}>Guardar</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
-      </Modal>          
+      </Modal>
     </View>
   );
 }
+
 

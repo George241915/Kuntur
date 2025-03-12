@@ -127,6 +127,32 @@ const styles = StyleSheet.create({
     top: '50%',
     transform: [{ translateY: -7 }], // Centra el ícono verticalmente
   },
+  buttonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginTop: 20,
+    paddingHorizontal: 20,
+    marginBottom: 20,
+  },
+  buttonCancel: {
+    backgroundColor: '#646ae7',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginRight: 10,
+    borderRadius: 5,
+    opacity: 0.5,
+  },
+  buttonSave: {
+    backgroundColor: '#646ae7',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    textAlign: 'center',
+  },
 });
 
 export default styles
