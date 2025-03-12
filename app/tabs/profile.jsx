@@ -97,15 +97,17 @@ export default function HomeUser() {
   };
 
   // Función para cancelar cambios
-const handleCancelChanges = () => {
-  setEditingName(false); // Esto asegura que el ícono de edición vuelva
-  setEditingPhone(false); // Lo mismo para los otros campos
-  setEditingAddress(false);
-  setModalVisible(false); // Cierra el modal
-};
+  const handleCancelChanges = () => {
+    setEditingName(false); // Esto asegura que el ícono de edición vuelva
+    setEditingPhone(false); // Lo mismo para los otros campos
+    setEditingAddress(false);
+    setModalVisible(false); // Cierra el modal
+  };
   return (
     <View style={styles.container}>
+
       <View style={styles.avatarContainer}>
+
         <View style={styles.card}>
           <View style={styles.avatarContainer}>
             <Image
@@ -116,34 +118,34 @@ const handleCancelChanges = () => {
               }
               style={styles.avatar}
             />
-            <Text style={styles.namePrincipal}>{userData.name}</Text>
-            <Text style={styles.emailSecond}>{userData.email}</Text>
+            <View style={{ marginLeft: 20 }}>
+              <Text style={styles.namePrincipal}>{userData.name}</Text>
+              <Text style={styles.emailSecond}>{userData.email}</Text>
 
-            <TouchableOpacity onPress={handleEditProfile}>
-              <Text style={{ color: '#3F7DF2', padding: 10 }}>
-                Editar perfil
-              </Text>
-            </TouchableOpacity>
-
-            <View style={styles.buttonContainer}>
-              <Text style={{ color: '#3F7DF2', padding: 10 }} onPress={() => Linking.openURL('https://www.facebook.com')}>
-                {facebook}
-              </Text>
-              <Text style={{ color: '#E1306C', padding: 10 }} onPress={() => Linking.openURL('https://www.instagram.com')}>
-                {instagram}
-              </Text>
-              <Text style={{ color: '#0e76a8', padding: 10 }} onPress={() => Linking.openURL('https://www.linkedin.com')}>
-                {linkedin}
-              </Text>
+              <TouchableOpacity onPress={handleEditProfile}>
+                <Text style={{ color: '#646ae7'}}>
+                  Editar perfil
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
 
-        <View style={styles.cardD}>
-          <Text style={{ paddingTop: 5 }}>Teléfono</Text>
-          <Text style={styles.name}>{userData.phone}</Text>
-        </View>
+
       </View>
+
+      <View style={styles.buttonContainer}>
+        <Text style={{ color: '#3F7DF2', padding: 25 }} onPress={() => Linking.openURL('https://www.facebook.com')}>
+          {facebook}
+        </Text>
+        <Text style={{ color: '#E1306C', padding: 25 }} onPress={() => Linking.openURL('https://www.instagram.com')}>
+          {instagram}
+        </Text>
+        <Text style={{ color: '#0e76a8', padding: 25 }} onPress={() => Linking.openURL('https://www.linkedin.com')}>
+          {linkedin}
+        </Text>
+      </View>
+
       {/* Modal para editar perfil */}
       <Modal
         visible={isModalVisible}
@@ -160,7 +162,6 @@ const handleCancelChanges = () => {
 
             <Text style={styles.modalTitle}>Editar Perfil</Text>
 
-            {/* Título Nombre */}
             <Text style={styles.subtitle}>Nombre:</Text>
             <View style={styles.nameContainer}>
               {editingName ? (
@@ -237,5 +238,4 @@ const handleCancelChanges = () => {
     </View>
   );
 }
-
 

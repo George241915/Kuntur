@@ -8,20 +8,24 @@ const styles = StyleSheet.create({
     paddingTop: 50,
   },
   avatarContainer: {
-    alignItems: 'center',
-    marginBottom: 20,
+    flexDirection: 'row', // Asegúrate de que el contenido esté en fila
+    alignItems: 'center', // Alinea verticalmente al centro
+    justifyContent: 'flex-start', // Alinea todo a la izquierda
   },
   card: {
     backgroundColor: '#fff',
     borderRadius: 15,
     padding: 20,
-    alignItems: 'center',
+    //alignItems: 'center',
     width: '100%',
     elevation: 3,
     shadowColor: '#000',
     shadowOpacity: 0.1,
     shadowRadius: 10,
     shadowOffset: { width: 0, height: 5 },
+    flexDirection: 'row',
+    // justifyContent: 'flex-start', // Alinea todo a la izquierda
+    marginBottom: 50, // Margen inferior si lo necesitas
   },
   avatar: {
     width: 100,
@@ -30,6 +34,7 @@ const styles = StyleSheet.create({
     borderWidth: 4,
     borderColor: '#D1D5DB',
     tintColor: '#646ae7',
+    alignItems: 'center',
   },
   namePrincipal: {
     fontSize: 22,
@@ -55,7 +60,7 @@ const styles = StyleSheet.create({
     width: '100%',
     elevation: 3,
     shadowColor: '#000',
-    shadowOpacity: 0.1,
+    shadowOpacity: 10,
     shadowRadius: 10,
     shadowOffset: { width: 0, height: 5 },
   },
