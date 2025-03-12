@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, Image, TouchableOpacity, Linking, Modal, TextInput } from 'react-native';
+import { View, Text, SafeAreaView, Image, TouchableOpacity, Linking, Modal, TextInput, ScrollView } from 'react-native';
 import React, { useState } from 'react';
 import styles from '@/styles/styleProfile.js';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -14,18 +14,17 @@ export default function HomeUser() {
   // Datos del usuario autenticado o valores por defecto
   const userData = user || {
     avatar: '@/assets/images/user.png',
-    name: 'Usuario Desconocido',
+    name: 'Desconocido',
     email: 'correo@ejemplo.com',
     phone: '0000000000',
     address: 'No especificado',
     city: 'No especificado',
-    age: '0', // Agregamos un campo de edad
+    age: '0',
   };
 
   // Estado para manejar la visibilidad del Modal
   const [isModalVisible, setModalVisible] = useState(false);
-  const [editingName, setEditingName] = useState(false); // Estado para editar el nombre
-  const [newName, setNewName] = useState(userData.name); // Estado para el nuevo nombre
+
   const [editingPhone, setEditingPhone] = useState(false); // Estado para editar el teléfono
   const [newPhone, setNewPhone] = useState(userData.phone); // Estado para el nuevo teléfono
   const [editingAddress, setEditingAddress] = useState(false); // Estado para editar la dirección
@@ -35,94 +34,49 @@ export default function HomeUser() {
 
   // Copia de los datos originales antes de la edición
   const [originalData, setOriginalData] = useState({
-    name: userData.name,
     phone: userData.phone,
     address: userData.address,
     age: userData.age,
   });
 
-  // Función para mostrar el modal
-  const handleEditProfile = () => {
-    setModalVisible(true);
-  };
+  // Función para mostrar el modal y cerrar 
+  const handleEditProfile = () => { setModalVisible(true); };
+  const handleCloseModal = () => { setModalVisible(false); };
 
-  // Función para cerrar el modal
-  const handleCloseModal = () => {
-    setModalVisible(false);
-  };
+  // Función para manejar la edición y guardar los campos
+  const handleEditPhone = () => { setEditingPhone(true); };
+  const handleSavePhone = () => { setEditingPhone(false); };
 
-  // Función para manejar la edición del nombre
-  const handleEditName = () => {
-    setEditingName(true);
-  };
+  const handleEditAddress = () => { setEditingAddress(true); };
+  const handleSaveAddress = () => { setEditingAddress(false); };
 
-  // Función para guardar el nombre editado
-  const handleSaveName = () => {
-    setEditingName(false);
-
-  };
-
-  // Función para manejar la edición del teléfono
-  const handleEditPhone = () => {
-    setEditingPhone(true);
-  };
-
-  // Función para guardar el teléfono editado
-  const handleSavePhone = () => {
-    setEditingPhone(false);
-  };
-
-  // Función para manejar la edición de la dirección
-  const handleEditAddress = () => {
-    setEditingAddress(true);
-  };
-
-  // Función para guardar la dirección editada
-  const handleSaveAddress = () => {
-    setEditingAddress(false);
-  };
-
-  // Función para manejar la edición de la edad
-  const handleEditAge = () => {
-    setEditingAge(true);
-  };
-
-  // Función para guardar la edad editada
-  const handleSaveAge = () => {
-    setEditingAge(false);
-  };
+  const handleEditAge = () => { setEditingAge(true); };
+  const handleSaveAge = () => { setEditingAge(false); };
 
   // Función para manejar la entrada del número de teléfono
   const handlePhoneChange = (text) => {
-    // Asegura que solo se ingresen números y que no superen los 10 caracteres
     if (/^\d{0,10}$/.test(text)) {
       setNewPhone(text);
     }
   };
 
-  // Función para manejar la edición de la edad 
   const handleAgeChange = (text) => {
     if (/^\d{0,2}$/.test(text)) {
       setNewAge(text);
     }
   };
 
-  // Función para guardar cambios
+  // Duardar cambios
   const handleSaveChanges = () => {
-    // Actualizamos los valores de los campos si hay cambios
-    userData.name = newName;
     userData.phone = newPhone;
     userData.address = newAddress;
     userData.age = newAge;
-
-    // Cerrar el modal después de guardar
     setModalVisible(false);
   };
 
   // Función para cancelar cambios
   const handleCancelChanges = () => {
-    setEditingName(false); // Esto asegura que el ícono de edición vuelva
-    setEditingPhone(false); // Lo mismo para los otros campos
+    setEditingPhone(false);
     setEditingAddress(false);
     setEditingAge(false);
     setModalVisible(false); // Cierra el modal
@@ -144,7 +98,7 @@ export default function HomeUser() {
             />
             <View style={{ marginLeft: 20 }}>
               <Text style={styles.namePrincipal}>
-                {newName}, {newAge} años
+                {userData.name}, {newAge} años
               </Text>
               <Text style={styles.emailSecond}>{userData.email}</Text>
 
@@ -156,8 +110,6 @@ export default function HomeUser() {
             </View>
           </View>
         </View>
-
-
       </View>
 
       <View style={styles.buttonContainer}>
@@ -179,113 +131,128 @@ export default function HomeUser() {
         transparent={true}
         onRequestClose={handleCloseModal}
       >
-        <View style={styles.modalBackground}>
-          <View style={styles.modalContainer}>
-            {/* Botón de cerrar */}
-            <TouchableOpacity onPress={handleCloseModal} style={styles.closeButton}>
-              <Text style={{ fontSize: 30 }}>×</Text>
-            </TouchableOpacity>
 
-            <Text style={styles.modalTitle}>Editar Perfil</Text>
+        <ScrollView contentContainerStyle={styles.scrollContainer} keyboardShouldPersistTaps="handled">
 
-            <Text style={styles.subtitle}>Nombre:</Text>
-            <View style={styles.nameContainer}>
-              {editingName ? (
-                <TextInput
-                  style={styles.input}
-                  value={newName}
-                  onChangeText={setNewName}
-                  onSubmitEditing={handleSaveName}
-                />
-              ) : (
-                <>
-                  <Text style={styles.namePrincipal}>{newName}</Text>
-                  <TouchableOpacity onPress={handleEditName} style={styles.editIconContainer}>
-                    <Icon name="edit" size={20} color="#3F7DF2" />
-                  </TouchableOpacity>
-                </>
-              )}
-            </View>
-            <Text style={styles.subtitle}>Edad:</Text>
-            <View style={styles.nameContainer}>
-              {editingAge ? (
-                <TextInput
-                  style={styles.input}
-                  value={newAge}
-                  onChangeText={handleAgeChange}
-                  onSubmitEditing={handleSaveAge}
-                  placeholder="Ingrese su edad"
-                  keyboardType="numeric"
-                />
-              ) : (
-                <>
-                  <Text style={styles.input}>{newAge} años</Text>
-                  <TouchableOpacity onPress={handleEditAge} style={styles.editIconContainer}>
-                    <Icon name="edit" size={20} color="#3F7DF2" />
-                  </TouchableOpacity>
-                </>
-              )}
-            </View>
-
-
-
-
-
-
-            <Text style={styles.subtitle}>Correo:</Text>
-            <Text style={styles.nameContainer} editable={false}>{userData.email}</Text>  {/* No editable */}
-
-            <Text style={styles.subtitle}>Teléfono:</Text>
-            <View style={styles.nameContainer}>
-              {editingPhone ? (
-                <TextInput
-                  style={styles.input}
-                  value={newPhone}
-                  onChangeText={handlePhoneChange}
-                  onSubmitEditing={handleSavePhone}
-                  placeholder="Ingrese su teléfono"
-                  keyboardType="numeric"
-                  maxLength={10}
-                />
-              ) : (
-                <>
-                  <Text style={styles.input}>{newPhone}</Text>
-                  <TouchableOpacity onPress={handleEditPhone} style={styles.editIconContainer}>
-                    <Icon name="edit" size={20} color="#3F7DF2" />
-                  </TouchableOpacity>
-                </>
-              )}
-            </View>
-
-            <Text style={styles.subtitle}>Dirección:</Text>
-            <View style={styles.nameContainer}>
-              {editingAddress ? (
-                <TextInput
-                  style={styles.input}
-                  value={newAddress}
-                  onChangeText={setNewAddress}
-                  onSubmitEditing={handleSaveAddress}
-                />
-              ) : (
-                <>
-                  <Text style={styles.input}>{newAddress}</Text>
-                  <TouchableOpacity onPress={handleEditAddress} style={styles.editIconContainer}>
-                    <Icon name="edit" size={20} color="#3F7DF2" />
-                  </TouchableOpacity>
-                </>
-              )}
-            </View>
-            <View style={styles.buttonsContainer}>
-              <TouchableOpacity onPress={handleCancelChanges} style={styles.buttonCancel}>
-                <Text style={styles.buttonText}>Cancelar</Text>
+          <View style={styles.modalBackground}>
+            <View style={styles.modalContainer}>
+              {/* Botón de cerrar */}
+              <TouchableOpacity onPress={handleCloseModal} style={styles.closeButton}>
+                <Text style={{ fontSize: 40, marginTop: -20, marginRight: -4 }}>×</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity onPress={handleSaveChanges} style={styles.buttonSave}>
-                <Text style={styles.buttonText}>Guardar</Text>
-              </TouchableOpacity>
+              <Text style={styles.modalTitle}>Editar Perfil</Text>
+
+              <View style={styles.avatarContainer}>
+                <Image
+                  source={
+                    userData.avatar
+                      ? { uri: userData.avatar }
+                      : require('@/assets/images/user.png')
+                  }
+                  style={styles.avatar}
+                />
+              </View>
+
+              <Text style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center', // Centra el contenido horizontalmente
+                marginBottom: 15, // Reducción del margen inferior
+                paddingVertical: 5, // Reducción del padding vertical
+                fontSize: 25, // Tamaño de texto más pequeño
+                color: '#1F2937',
+                fontWeight: '500',
+              }}>{userData.name}</Text>
+              <Text style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center', // Centra el contenido horizontalmente
+                fontSize: 18, // Tamaño de texto más pequeño
+                color: '#1F2937',
+                marginTop: -12, // Reducción del padding vertical
+              }}>{userData.email}</Text>
+
+
+              <View style={styles.nameContainer}>
+                <Text style={styles.subtitle}>
+                  <Icon name="birthday-cake" style={styles.iconStyle} />
+                  Edad:</Text>
+                {editingAge ? (
+                  <TextInput
+                    style={styles.input}
+                    value={newAge}
+                    onChangeText={handleAgeChange}
+                    onSubmitEditing={handleSaveAge}
+                    placeholder="Ingrese su edad"
+                    keyboardType="numeric"
+                  />
+                ) : (
+                  <>
+                    <Text style={styles.input}>{newAge} años</Text>
+                    <TouchableOpacity onPress={handleEditAge} style={styles.editIconContainer}>
+                      <Icon name="edit" size={20} color="#646ae7" />
+                    </TouchableOpacity>
+                  </>
+                )}
+              </View>
+              <View style={styles.nameContainer}>
+                <Text style={styles.subtitle}>
+                  <Icon name="phone" style={styles.iconStyle} />
+                  Teléfono:</Text>
+
+
+                {editingPhone ? (
+                  <TextInput
+                    style={styles.input}
+                    value={newPhone}
+                    onChangeText={handlePhoneChange}
+                    onSubmitEditing={handleSavePhone}
+                    placeholder="Ingrese su teléfono"
+                    keyboardType="numeric"
+                    maxLength={10}
+                  />
+                ) : (
+                  <>
+                    <Text style={styles.input}>{newPhone}</Text>
+                    <TouchableOpacity onPress={handleEditPhone} style={styles.editIconContainer}>
+                      <Icon name="edit" size={20} color="#646ae7" />
+                    </TouchableOpacity>
+                  </>
+                )}
+              </View>
+              <View style={styles.nameContainer}>
+                <Text style={styles.subtitle}>
+                  <Icon name="map-marker-alt" style={styles.iconStyle} />
+                  Dirección:</Text>
+                {editingAddress ? (
+                  <TextInput
+                    style={styles.input}
+                    value={newAddress}
+                    onChangeText={setNewAddress}
+                    onSubmitEditing={handleSaveAddress}
+                  />
+                ) : (
+                  <>
+                    <Text style={styles.input}>{newAddress}</Text>
+                    <TouchableOpacity onPress={handleEditAddress} style={styles.editIconContainer}>
+                      <Icon name="edit" size={20} color="#646ae7" />
+                    </TouchableOpacity>
+                  </>
+                )}
+              </View>
+              <View style={styles.buttonsContainer}>
+                <TouchableOpacity onPress={handleCancelChanges} style={styles.buttonCancel}>
+                  <Text style={styles.buttonText}>Cancelar</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={handleSaveChanges} style={styles.buttonSave}>
+                  <Text style={styles.buttonText}>Guardar</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
-        </View>
+        </ScrollView>
       </Modal>
     </View>
   );

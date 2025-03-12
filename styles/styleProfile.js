@@ -76,9 +76,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)', // Fondo oscuro para el modal
   },
   modalContainer: {
-    width: '80%',
+    width: '45%',
+    height: '95%',
     backgroundColor: 'white',
-    padding: 20,
+    padding: 15,
     borderRadius: 10,
     alignItems: 'center',
   },
@@ -88,27 +89,25 @@ const styles = StyleSheet.create({
     right: 10,
   },
   modalTitle: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 20,
+    color: '#1F2937',
   },
   subtitle: {
-    fontSize: 22, // Mismo tamaño que los campos
-    fontWeight: '600',  // Mantiene el formato uniforme
-    marginBottom: 5,
-    color: '#333', // Color consistente
-    alignSelf: 'flex-start', // Alinea el subtítulo a la izquierda
+    fontSize: 18,
+    fontWeight: '600',
+    marginBottom: 10,
+    color: '#333',
+    alignSelf: 'flex-start',
   },
   nameContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start', // Alineamos los elementos en el centro horizontalmente
+    alignItems: 'center',  // Centra verticalmente los elementos (ícono, texto, etc.)
     borderColor: '#ccc',
     padding: 5,
-    marginBottom: 10,
-    alignSelf: 'flex-start', // Alinea el subtítulo a la izquierda
+    marginBottom: -5,
     fontSize: 22,
-    fontWeight: 'bold',
     marginTop: 10,
     color: '#1F2937',
   },
@@ -122,15 +121,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginBottom: 5,
     backgroundColor: '#f9f9f9',
-    fontWeight: 'bold',
+    fontWeight: '500',
     marginTop: 10,
     color: '#1F2937',
   },
   editIconContainer: {
     position: 'absolute',
-    right: -40, // El ícono se posiciona fuera del cuadro
+    right: -30, // El ícono se posiciona fuera del cuadro
     top: '50%',
-    transform: [{ translateY: -7 }], // Centra el ícono verticalmente
+    transform: [{ translateY: 5 }], // Centra el ícono verticalmente
   },
   buttonsContainer: {
     flexDirection: 'row',
@@ -146,17 +145,25 @@ const styles = StyleSheet.create({
     marginRight: 10,
     borderRadius: 5,
     opacity: 0.5,
+    marginBottom: 15,
   },
   buttonSave: {
     backgroundColor: '#646ae7',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
+    marginBottom: 15,
   },
   buttonText: {
     color: '#fff',
     fontSize: 16,
     textAlign: 'center',
+  },
+  iconStyle : {
+    fontSize: 20,       // Tamaño del icono
+    color: '#646ae7',   // Color del icono
+    paddingLeft: 10,    // Padding para separación
+    marginRight: 10,    // Espacio entre el icono y el texto
   },
 });
 
