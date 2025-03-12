@@ -19,6 +19,7 @@ export default function HomeUser() {
     phone: '0000000000',
     address: 'No especificado',
     city: 'No especificado',
+    age: '0', // Agregamos un campo de edad
   };
 
   // Estado para manejar la visibilidad del Modal
@@ -29,12 +30,15 @@ export default function HomeUser() {
   const [newPhone, setNewPhone] = useState(userData.phone); // Estado para el nuevo teléfono
   const [editingAddress, setEditingAddress] = useState(false); // Estado para editar la dirección
   const [newAddress, setNewAddress] = useState(userData.address); // Estado para la nueva dirección
+  const [editingAge, setEditingAge] = useState(false); // Estado para editar la edad
+  const [newAge, setNewAge] = useState(userData.age); // Estado para la nueva edad
 
   // Copia de los datos originales antes de la edición
   const [originalData, setOriginalData] = useState({
     name: userData.name,
     phone: userData.phone,
     address: userData.address,
+    age: userData.age,
   });
 
   // Función para mostrar el modal
@@ -78,6 +82,16 @@ export default function HomeUser() {
     setEditingAddress(false);
   };
 
+  // Función para manejar la edición de la edad
+  const handleEditAge = () => {
+    setEditingAge(true);
+  };
+
+  // Función para guardar la edad editada
+  const handleSaveAge = () => {
+    setEditingAge(false);
+  };
+
   // Función para manejar la entrada del número de teléfono
   const handlePhoneChange = (text) => {
     // Asegura que solo se ingresen números y que no superen los 10 caracteres
@@ -85,12 +99,21 @@ export default function HomeUser() {
       setNewPhone(text);
     }
   };
+
+  // Función para manejar la edición de la edad 
+  const handleAgeChange = (text) => {
+    if (/^\d{0,2}$/.test(text)) {
+      setNewAge(text);
+    }
+  };
+
   // Función para guardar cambios
   const handleSaveChanges = () => {
     // Actualizamos los valores de los campos si hay cambios
     userData.name = newName;
     userData.phone = newPhone;
     userData.address = newAddress;
+    userData.age = newAge;
 
     // Cerrar el modal después de guardar
     setModalVisible(false);
@@ -101,6 +124,7 @@ export default function HomeUser() {
     setEditingName(false); // Esto asegura que el ícono de edición vuelva
     setEditingPhone(false); // Lo mismo para los otros campos
     setEditingAddress(false);
+    setEditingAge(false);
     setModalVisible(false); // Cierra el modal
   };
   return (
@@ -119,11 +143,13 @@ export default function HomeUser() {
               style={styles.avatar}
             />
             <View style={{ marginLeft: 20 }}>
-              <Text style={styles.namePrincipal}>{userData.name}</Text>
+              <Text style={styles.namePrincipal}>
+                {newName}, {newAge} años
+              </Text>
               <Text style={styles.emailSecond}>{userData.email}</Text>
 
               <TouchableOpacity onPress={handleEditProfile}>
-                <Text style={{ color: '#646ae7'}}>
+                <Text style={{ color: '#646ae7' }}>
                   Editar perfil
                 </Text>
               </TouchableOpacity>
@@ -180,6 +206,32 @@ export default function HomeUser() {
                 </>
               )}
             </View>
+            <Text style={styles.subtitle}>Edad:</Text>
+            <View style={styles.nameContainer}>
+              {editingAge ? (
+                <TextInput
+                  style={styles.input}
+                  value={newAge}
+                  onChangeText={handleAgeChange}
+                  onSubmitEditing={handleSaveAge}
+                  placeholder="Ingrese su edad"
+                  keyboardType="numeric"
+                />
+              ) : (
+                <>
+                  <Text style={styles.input}>{newAge} años</Text>
+                  <TouchableOpacity onPress={handleEditAge} style={styles.editIconContainer}>
+                    <Icon name="edit" size={20} color="#3F7DF2" />
+                  </TouchableOpacity>
+                </>
+              )}
+            </View>
+
+
+
+
+
+
             <Text style={styles.subtitle}>Correo:</Text>
             <Text style={styles.nameContainer} editable={false}>{userData.email}</Text>  {/* No editable */}
 
