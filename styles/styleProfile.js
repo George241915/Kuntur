@@ -1,4 +1,11 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+// Obtén las dimensiones de la pantalla
+const { width, height } = Dimensions.get('window');
+
+// Ajuste de modal dependiendo del tamaño de la pantalla
+const modalWidth = width < 768 ? '90%' : '45%';  // Si es un móvil, el modal ocupará más espacio
+const modalHeight = height < 600 ? '80%' : '95%';  // Para pantallas más pequeñas (como móviles)
 
 const styles = StyleSheet.create({
   container: {
@@ -37,10 +44,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   namePrincipal: {
-    fontSize: 22,
+    fontSize: 15,
     fontWeight: 'bold',
     marginTop: 10,
     color: '#1F2937',
+    flexWrap: 'wrap',
+    maxWidth: 200, //
   },
   emailSecond: {
     fontSize: 16,
@@ -76,12 +85,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)', // Fondo oscuro para el modal
   },
   modalContainer: {
-    width: '45%',
-    height: '95%',
+    width: modalWidth,
+    height: modalHeight,
     backgroundColor: 'white',
     padding: 15,
     borderRadius: 10,
     alignItems: 'center',
+    
   },
   closeButton: {
     position: 'absolute',
@@ -100,6 +110,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     color: '#333',
     alignSelf: 'flex-start',
+    flexWrap: 'wrap', // Permite que el texto se divida en varias líneas
+    maxWidth: '100%', // Evita que se desborde
   },
   nameContainer: {
     justifyContent: 'flex-start', // Alineamos los elementos en el centro horizontalmente
@@ -110,6 +122,8 @@ const styles = StyleSheet.create({
     fontSize: 22,
     marginTop: 10,
     color: '#1F2937',
+    flexWrap: 'wrap', // Permite que el texto se divida en varias líneas
+    maxWidth: '100%', // Evita que se desborde
   },
   input: {
     height: 40,
@@ -124,12 +138,16 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     marginTop: 10,
     color: '#1F2937',
+    flexWrap: 'wrap', // Permite que el texto se divida en varias líneas
+    maxWidth: '100%', // Evita que se desborde
   },
   editIconContainer: {
     position: 'absolute',
     right: -30, // El ícono se posiciona fuera del cuadro
     top: '50%',
     transform: [{ translateY: 5 }], // Centra el ícono verticalmente
+    flexWrap: 'wrap', // Permite que el texto se divida en varias líneas
+    maxWidth: '100%', // Evita que se desborde
   },
   buttonsContainer: {
     flexDirection: 'row',
@@ -137,6 +155,8 @@ const styles = StyleSheet.create({
     marginTop: 20,
     paddingHorizontal: 20,
     marginBottom: 20,
+    flexWrap: 'wrap', // Permite que el texto se divida en varias líneas
+    maxWidth: '100%', // Evita que se desborde
   },
   buttonCancel: {
     backgroundColor: '#646ae7',
@@ -164,7 +184,10 @@ const styles = StyleSheet.create({
     color: '#646ae7',   // Color del icono
     paddingLeft: 10,    // Padding para separación
     marginRight: 10,    // Espacio entre el icono y el texto
+    flexWrap: 'wrap', // Permite que el texto se divida en varias líneas
+    maxWidth: '100%', // Evita que se desborde
   },
 });
 
 export default styles
+
