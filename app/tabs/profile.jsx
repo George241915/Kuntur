@@ -131,7 +131,6 @@ export default function HomeUser() {
         transparent={true}
         onRequestClose={handleCloseModal}
       >
-
         <ScrollView contentContainerStyle={styles.scrollContainer} keyboardShouldPersistTaps="handled">
 
           <View style={styles.modalBackground}>

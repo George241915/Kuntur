@@ -8,7 +8,7 @@ const modalWidth = width < 768 ? '90%' : '45%';  // Si es un móvil, el modal oc
 const modalHeight = height < 600 ? '80%' : '95%';  // Para pantallas más pequeñas (como móviles)
 
 const styles = StyleSheet.create({
-  container: {
+  container: {  
     flex: 1,
     backgroundColor: 'white', // Color de fondo similar al de la imagen
     paddingHorizontal: 20,
