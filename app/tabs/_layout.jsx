@@ -60,7 +60,7 @@ export default function TabLayout() {
         },
         tabBarShowLabel: false, // Oculta los nombres de las pestañas
         headerTitleStyle: {
-          fontSize: 36, // Tamaño del título
+          fontSize: 34, // Tamaño del título
           fontFamily: 'Inter-Bold',
           fontWeight: 'bold', // Negrita
           color: '#000', // Color negro
